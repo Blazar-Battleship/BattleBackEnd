@@ -1,4 +1,8 @@
 {
-  "ExpandedNodes": [],
+  "ExpandedNodes": [
+    "",
+    "\\Battleship"
+  ],
+  "SelectedNode": "\\Battleship\\Battleship.sln",
   "PreviewInSolutionExplorer": false
 }
