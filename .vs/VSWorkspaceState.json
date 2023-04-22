@@ -1,4 +1,10 @@
 {
-  "ExpandedNodes": [],
+  "ExpandedNodes": [
+    "",
+    "\\Battleship",
+    "\\Battleship\\Battleship",
+    "\\Battleship\\Battleship\\Controllers"
+  ],
+  "SelectedNode": "\\Battleship\\Battleship\\Controllers\\CoalitionsController.cs",
   "PreviewInSolutionExplorer": false
 }
