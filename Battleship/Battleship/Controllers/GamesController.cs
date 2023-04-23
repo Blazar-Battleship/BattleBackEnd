@@ -93,6 +93,8 @@ namespace Battleship.Controllers
             Game game = new Game();
             Coalition coal1 = new Coalition();
             Coalition coal2 = new Coalition();
+            coal1.Name = "red";
+            coal2.Name = "blue";
 
             game.Coalitions.Add(coal1);
             game.Coalitions.Add(coal2);
