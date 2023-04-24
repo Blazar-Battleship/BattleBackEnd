@@ -82,19 +82,35 @@ namespace Battleship.Controllers
 
         // POST: api/Grids
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Grid>> PostGrid(Grid grid)
+        [HttpPost("rossa")]
+        public async Task<ActionResult<Grid>> PostGrid(Ship[] flotta1)
         {
-          if (_context.Grids == null)
-          {
-              return Problem("Entity set 'BattleShipContext.Grids'  is null.");
-          }
-            _context.Grids.Add(grid);
+            Grid grid = new Grid();
+            Coalition co = _context.Coalitions.Where(x=> x.Name=="red").FirstOrDefault();
+            foreach(Ship s in flotta1)
+            {
+                grid.Ships.Add(s);
+            }
+            co.Grids.Add(grid);
             await _context.SaveChangesAsync();
+            return grid;
 
-            return CreatedAtAction("GetGrid", new { id = grid.Id }, grid);
         }
 
+        [HttpPost("blu")]
+        public async Task<ActionResult<Grid>> PostGrid2(Ship[] flotta1)
+        {
+            Grid grid = new Grid();
+            Coalition co = _context.Coalitions.Where(x => x.Name == "blue").FirstOrDefault();
+            foreach (Ship s in flotta1)
+            {
+                grid.Ships.Add(s);
+            }
+            co.Grids.Add(grid);
+            await _context.SaveChangesAsync();
+            return grid;
+
+        }
         // DELETE: api/Grids/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGrid(int id)

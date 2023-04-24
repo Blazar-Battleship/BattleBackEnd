@@ -82,19 +82,16 @@ namespace Battleship.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<Ship>> PostShip(Ship[] flotta)
+        public async Task<ActionResult<Ship>> PostShip(Ship ship)
         {
             if (_context.Ships == null)
             {
-                return Problem("Non è presente nulla");
+                return Problem("Entity set 'BattleShipContext.Ships'  is null.");
             }
-            foreach (Ship s in flotta)
-            {
-                _context.Ships.Add(s);
-            }
+            _context.Ships.Add(ship);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("Flotta", flotta);
+            return CreatedAtAction("GetShip", new { id = ship.Id }, ship);
         }
 
 
