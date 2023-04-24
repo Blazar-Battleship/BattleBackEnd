@@ -140,24 +140,15 @@ namespace Battleship.Controllers
         }
 
         // DELETE: api/Games/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGame(int id)
+        [HttpDelete]
+        public async Task<List<Player>> DeleteGame(Game game)
         {
-            if (_context.Games == null)
-            {
-                return NotFound();
-            }
-            var game = await _context.Games.FindAsync(id);
-            if (game == null)
-            {
-                return NotFound();
-            }
-
             _context.Games.Remove(game);
             await _context.SaveChangesAsync();
-
-            return NoContent();
+            return _context.Players.OrderBy(x => x.Points).ToList();
         }
+
+   
 
         private bool GameExists(int id)
         {
