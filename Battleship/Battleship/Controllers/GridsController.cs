@@ -20,66 +20,6 @@ namespace Battleship.Controllers
             _context = context;
         }
 
-        // GET: api/Grids
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Grid>>> GetGrids()
-        {
-          if (_context.Grids == null)
-          {
-              return NotFound();
-          }
-            return await _context.Grids.ToListAsync();
-        }
-
-        // GET: api/Grids/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Grid>> GetGrid(int id)
-        {
-          if (_context.Grids == null)
-          {
-              return NotFound();
-          }
-            var grid = await _context.Grids.FindAsync(id);
-
-            if (grid == null)
-            {
-                return NotFound();
-            }
-
-            return grid;
-        }
-
-        // PUT: api/Grids/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutGrid(int id, Grid grid)
-        {
-            if (id != grid.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(grid).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GridExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/Grids
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("rossa")]
@@ -111,7 +51,7 @@ namespace Battleship.Controllers
             return grid;
 
         }
-        // DELETE: api/Grids/5
+ 
         [HttpPost("{player}/{enemy}")]
         public async Task<ActionResult<Player>> Shoot(string player, string enemy, ShipSlice cordinates)
         {
