@@ -20,8 +20,7 @@ namespace Battleship.Controllers
             _context = context;
         }
 
-        // POST: api/Games
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: creazione randomica di coalizioni
         [HttpPost]
         public async Task<ActionResult<Game>> PostCoalition(Player[] players)
         {
@@ -79,7 +78,7 @@ namespace Battleship.Controllers
             return game;
         }
 
-        // DELETE: api/Games/5
+        // DELETE: eliminazione di tutti i dati alla fine della partita
         [HttpDelete]
         public async Task<List<Player>> DeleteGame(Game game)
         {

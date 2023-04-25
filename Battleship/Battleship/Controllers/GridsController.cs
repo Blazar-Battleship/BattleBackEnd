@@ -20,8 +20,7 @@ namespace Battleship.Controllers
             _context = context;
         }
 
-        // POST: api/Grids
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: salvataggio flotta della coalizione rossa
         [HttpPost("rossa")]
         public async Task<ActionResult<Grid>> PostGrid(Ship[] flotta1)
         {
@@ -37,6 +36,7 @@ namespace Battleship.Controllers
 
         }
 
+        //POST : salvataggio flotta della coalizione blu
         [HttpPost("blu")]
         public async Task<ActionResult<Grid>> PostGrid2(Ship[] flotta1)
         {
@@ -52,6 +52,7 @@ namespace Battleship.Controllers
 
         }
  
+        //POST: gestione attacco e aggiornamento database
         [HttpPost("{player}/{enemy}")]
         public async Task<ActionResult<Player>> Shoot(string player, string enemy, ShipSlice cordinates)
         {
