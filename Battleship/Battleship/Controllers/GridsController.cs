@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Battleship.Models;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Battleship.Controllers
 {
@@ -51,7 +52,7 @@ namespace Battleship.Controllers
             return grid;
 
         }
- 
+
         //POST: gestione attacco e aggiornamento database
         [HttpPost("{player}/{enemy}")]
         public async Task<ActionResult<Player>> Shoot(string player, string enemy, ShipSlice cordinates)
@@ -68,22 +69,25 @@ namespace Battleship.Controllers
                 shot++;
 
                 _context.Entry(s).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
             }
 
             foreach (int s in IDs)
             {
                 Ship barca = _context.Ships.Where(x => x.Id == s).FirstOrDefault();
-                int rimaste = barca.ShipSlices.Count(x => x.Status == true);
 
-                if (rimaste == 0)
+                List<ShipSlice> rest = _context.ShipSlices.Where(x => x.ShipId == s & x.Status == false).ToList();
+
+                if (rest.IsNullOrEmpty())
                 {
                     destroy++;
                     _context.Ships.Remove(barca);
+                    await _context.SaveChangesAsync();
                 }
             }
 
             Player User = _context.Players.Where(x => x.Name == player).FirstOrDefault();
-            User.Points = (10 * shot) + (5 * destroy);
+            User.Points += (10 * shot) + (5 * destroy);
             _context.Entry(User).State = EntityState.Modified;
 
             await _context.SaveChangesAsync();
