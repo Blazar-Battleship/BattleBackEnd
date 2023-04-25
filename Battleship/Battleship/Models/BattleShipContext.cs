@@ -27,7 +27,9 @@ public partial class BattleShipContext : DbContext
 
     public virtual DbSet<ShipSlice> ShipSlices { get; set; }
 
-
+//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+//        => optionsBuilder.UseSqlServer("Data Source=USERNZX-HGG8ASN;Initial Catalog=BattleShip;Integrated Security=True;Persist Security Info=True;User ID=sa;Password='wwr200261';Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -88,6 +90,9 @@ public partial class BattleShipContext : DbContext
         {
             entity.ToTable("ShipSlice");
 
+            entity.Property(e => e.Team)
+                .HasMaxLength(10)
+                .IsFixedLength();
             entity.Property(e => e.X).HasColumnName("x");
             entity.Property(e => e.Y).HasColumnName("y");
 

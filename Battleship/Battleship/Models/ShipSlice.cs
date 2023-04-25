@@ -11,6 +11,8 @@ public partial class ShipSlice
 
     public int Y { get; set; }
 
+    public string? Team { get; set; }
+
     public bool Status { get; set; }
 
     public int ShipId { get; set; }

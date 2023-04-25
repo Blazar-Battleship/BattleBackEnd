@@ -83,51 +83,72 @@ namespace Battleship.Controllers
         // POST: api/Games
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Game>> PostGame(Game game)
+        public async Task<ActionResult<Game>> PostCoalition(Player[] players)
         {
-          if (_context.Games == null)
-          {
-              return Problem("Entity set 'BattleShipContext.Games'  is null.");
-          }
-            _context.Games.Add(game);
-            try
+            if (_context.Coalitions == null)
             {
-                await _context.SaveChangesAsync();
+                return Problem("Entity set 'BattleShipContext.Coalitions'  is null.");
             }
-            catch (DbUpdateException)
+
+            Game game = new Game();
+            Coalition coal1 = new Coalition();
+            Coalition coal2 = new Coalition();
+            coal1.Name = "red";
+            coal2.Name = "blue";
+
+            game.Coalitions.Add(coal1);
+            game.Coalitions.Add(coal2);
+
+            if (players.Length == 2)
             {
-                if (GameExists(game.Id))
+                Player player1 = players[0];
+                Player player2 = players[1];
+
+                coal1.Players.Add(player1);
+                coal2.Players.Add(player2);
+            }
+            else if (players.Length > 2)
+            {
+                var rnd = new Random();
+                List<int> numbers = Enumerable.Range(0, players.Length).OrderBy(x => rnd.Next()).Take(players.Length).ToList();
+                int num = 0;
+
+                Random rand = new Random();
+                Console.WriteLine(numbers);
+                foreach (Player i in players.OrderBy(x => rand.Next()))
                 {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
+                    if (num == 0)
+                    {
+                        Player play1 = i;
+                        coal1.Players.Add(play1);
+                        num = 1;
+                    }
+                    else
+                    {
+                        Player play2 = i;
+                        coal2.Players.Add(play2);
+                        num = 0;
+                    }
+
                 }
             }
 
-            return CreatedAtAction("GetGame", new { id = game.Id }, game);
+            _context.Games.Add(game);
+            await _context.SaveChangesAsync();
+
+            return game;
         }
 
         // DELETE: api/Games/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGame(int id)
+        [HttpDelete]
+        public async Task<List<Player>> DeleteGame(Game game)
         {
-            if (_context.Games == null)
-            {
-                return NotFound();
-            }
-            var game = await _context.Games.FindAsync(id);
-            if (game == null)
-            {
-                return NotFound();
-            }
-
             _context.Games.Remove(game);
             await _context.SaveChangesAsync();
-
-            return NoContent();
+            return _context.Players.OrderBy(x => x.Points).ToList();
         }
+
+   
 
         private bool GameExists(int id)
         {
