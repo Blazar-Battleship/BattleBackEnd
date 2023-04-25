@@ -24,10 +24,10 @@ namespace Battleship.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Ship>>> GetShips()
         {
-          if (_context.Ships == null)
-          {
-              return NotFound();
-          }
+            if (_context.Ships == null)
+            {
+                return NotFound();
+            }
             return await _context.Ships.ToListAsync();
         }
 
@@ -35,10 +35,10 @@ namespace Battleship.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Ship>> GetShip(int id)
         {
-          if (_context.Ships == null)
-          {
-              return NotFound();
-          }
+            if (_context.Ships == null)
+            {
+                return NotFound();
+            }
             var ship = await _context.Ships.FindAsync(id);
 
             if (ship == null)
@@ -80,20 +80,20 @@ namespace Battleship.Controllers
             return NoContent();
         }
 
-        // POST: api/Ships
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+
         [HttpPost]
         public async Task<ActionResult<Ship>> PostShip(Ship ship)
         {
-          if (_context.Ships == null)
-          {
-              return Problem("Entity set 'BattleShipContext.Ships'  is null.");
-          }
+            if (_context.Ships == null)
+            {
+                return Problem("Entity set 'BattleShipContext.Ships'  is null.");
+            }
             _context.Ships.Add(ship);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetShip", new { id = ship.Id }, ship);
         }
+
 
         // DELETE: api/Ships/5
         [HttpDelete("{id}")]
