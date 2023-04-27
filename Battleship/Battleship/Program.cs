@@ -19,8 +19,12 @@ builder.Services.AddControllersWithViews()
     .AddJsonOptions(options =>
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles
 );
-
+builder.Services.AddCors(p => p.AddPolicy("corspolicy", build =>
+{
+    build.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+}));
 var app = builder.Build();
+app.UseCors("corspolicy");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

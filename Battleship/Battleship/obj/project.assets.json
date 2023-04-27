@@ -10723,19 +10723,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jbisc\\.nuget\\packages\\": {}
+    "C:\\Users\\abdul\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jbisc\\source\\repos\\BattleBackEnd\\Battleship\\Battleship\\Battleship.csproj",
+      "projectUniqueName": "C:\\Users\\abdul\\Source\\Repos\\BattleBackEnd\\Battleship\\Battleship\\Battleship.csproj",
       "projectName": "Battleship",
-      "projectPath": "C:\\Users\\jbisc\\source\\repos\\BattleBackEnd\\Battleship\\Battleship\\Battleship.csproj",
-      "packagesPath": "C:\\Users\\jbisc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jbisc\\source\\repos\\BattleBackEnd\\Battleship\\Battleship\\obj\\",
+      "projectPath": "C:\\Users\\abdul\\Source\\Repos\\BattleBackEnd\\Battleship\\Battleship\\Battleship.csproj",
+      "packagesPath": "C:\\Users\\abdul\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\abdul\\Source\\Repos\\BattleBackEnd\\Battleship\\Battleship\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\jbisc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\abdul\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

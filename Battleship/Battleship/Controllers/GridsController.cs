@@ -55,8 +55,9 @@ namespace Battleship.Controllers
 
         //POST: gestione attacco e aggiornamento database
         [HttpPost("{player}/{enemy}")]
-        public async Task<ActionResult<Player>> Shoot(string player, string enemy, ShipSlice cordinates)
+        public async Task<ActionResult<finish>> Shoot(string player, string enemy, ShipSlice cordinates)
         {
+            //Method shoot ships
             List<ShipSlice> res = _context.ShipSlices.Where(x => x.X == cordinates.X & x.Y == cordinates.Y & x.Team == enemy).ToList();
             List<int> IDs = new List<int>();
             int shot = 0;
@@ -91,8 +92,41 @@ namespace Battleship.Controllers
             _context.Entry(User).State = EntityState.Modified;
 
             await _context.SaveChangesAsync();
-            return Ok(User);
+
+            finish resp = new finish();
+            resp.player = User;
+
+            bool colp;
+
+            if (shot == 0)
+            {
+                colp = false;
+                resp.colpita = colp;
+            }
+            else
+            {
+                colp = true;
+                resp.colpita = colp;
+            }
+
+            List<ShipSlice> fin = _context.ShipSlices.Where(x => x.Team == enemy).ToList();
+
+            if (!fin.IsNullOrEmpty())
+            {
+                resp.finita = false;
+
+                return resp;
+
+            }
+            else
+            {
+                resp.finita = true;
+
+                return resp;
+
+            }
         }
+
 
         private bool GridExists(int id)
         {

@@ -1,4 +1,9 @@
 {
-  "ExpandedNodes": [],
+  "ExpandedNodes": [
+    "",
+    "\\Battleship",
+    "\\Battleship\\Battleship"
+  ],
+  "SelectedNode": "\\Battleship\\Battleship\\Controllers",
   "PreviewInSolutionExplorer": false
 }

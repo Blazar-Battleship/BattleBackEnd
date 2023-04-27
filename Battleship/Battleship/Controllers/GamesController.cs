@@ -20,6 +20,16 @@ namespace Battleship.Controllers
             _context = context;
         }
 
+        
+        [HttpGet]
+        public async Task<ActionResult<Game>> GetCustomers()
+        {
+            Game game = await _context.Set<Game>()
+                .Where(x => x.Id == 0).Include(x => x.Coalitions).ThenInclude(x => x.Players).FirstOrDefaultAsync();
+
+            return game;
+        }
+
         // POST: creazione randomica di coalizioni
         [HttpPost]
         public async Task<ActionResult<Game>> PostCoalition(Player[] players)
@@ -82,11 +92,12 @@ namespace Battleship.Controllers
         [HttpDelete]
         public async Task<List<Player>> DeleteGame(Game game)
         {
+            List<Player> players = _context.Players.OrderBy(x => x.Points).ToList();
             _context.Games.Remove(game);
             await _context.SaveChangesAsync();
-            return _context.Players.OrderBy(x => x.Points).ToList();
+            return players;
         }
-
+       
    
 
         private bool GameExists(int id)
