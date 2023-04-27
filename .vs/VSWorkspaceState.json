@@ -1,4 +1,10 @@
 {
-  "ExpandedNodes": [],
+  "ExpandedNodes": [
+    "",
+    "\\Battleship",
+    "\\Battleship\\Battleship",
+    "\\Battleship\\Battleship\\Controllers"
+  ],
+  "SelectedNode": "\\Battleship\\Battleship\\Controllers\\GridsController.cs",
   "PreviewInSolutionExplorer": false
 }
