@@ -39,6 +39,14 @@ namespace Battleship.Controllers
                 return Problem("Entity set 'BattleShipContext.Coalitions'  is null.");
             }
 
+            Game lastGame = await _context.Games.Where(x => x.Id == 0).FirstOrDefaultAsync();
+
+            if (lastGame != null)
+            {
+                _context.Games.Remove(lastGame);
+                await _context.SaveChangesAsync();
+            }
+
             Game game = new Game();
             Coalition coal1 = new Coalition();
             Coalition coal2 = new Coalition();
